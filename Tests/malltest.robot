@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation    Suite description
 Library  SeleniumLibrary
+Library  ExcelRobot
 Resource  ../Resources/MainPage.robot
 Resource  ../Resources/ResultPage.robot
 
@@ -24,9 +25,12 @@ TC003 Mall search - Bosch
     [Documentation]  Vyhledavani na hlavni strance, link na dokumentaci, autor, na co si dat pozor, konfigurace
     ...  dalsi radek dokumentace
     ...  a dalsi
-    [Tags]  smoke  regrese
-    Vyhledani znacky  Bosch
-    Kontrola vysledku  Bosch
+    [Tags]  smoke  regrese  debug
+    open excel  Data/TestData.xls
+    ${co_hledame}       read cell data by name  Sheet1  A2
+    ${co_kontrolujeme}  read cell data by name  Sheet1  B2
+    Vyhledani znacky    ${co_hledame}
+    Kontrola vysledku   ${co_kontrolujeme}
 
 
 
